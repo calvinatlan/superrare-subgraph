@@ -1,0 +1,84 @@
+specVersion: 0.0.4
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: ethereum
+    name: SuperRareV1
+    network: mainnet
+    source:
+      address: "0x41a322b28d0ff354040e2cbc676f0320d8c8850d"
+      abi: SuperRareV1
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - WhitelistCreator
+        - Bid
+        - AcceptBid
+        - CancelBid
+        - Sold
+        - SalePriceSet
+        - OwnershipTransferred
+        - Transfer
+        - Approval
+      abis:
+        - name: SuperRareV1
+          file: SuperRareV1/abis/SuperRareV1.json
+      eventHandlers:
+        - event: WhitelistCreator(indexed address)
+          handler: handleWhitelistCreator
+        - event: Bid(indexed address,indexed uint256,indexed uint256)
+          handler: handleBid
+        - event: AcceptBid(indexed address,indexed address,uint256,indexed uint256)
+          handler: handleAcceptBid
+        - event: CancelBid(indexed address,indexed uint256,indexed uint256)
+          handler: handleCancelBid
+        - event: Sold(indexed address,indexed address,uint256,indexed uint256)
+          handler: handleSold
+        - event: SalePriceSet(indexed uint256,indexed uint256)
+          handler: handleSalePriceSet
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+      file: SuperRareV1/SuperRareV1.wasm
+  - kind: ethereum
+    name: SuperRareV2
+    network: mainnet
+    source:
+      address: "0xb932a70a57673d89f4acffbe830e8ed7f75fb9e0"
+      abi: SuperRareV2
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - TokenURIUpdated
+        - AddToWhitelist
+        - RemoveFromWhitelist
+        - SuperRareV2OwnershipTransferred
+        - SuperRareV2Transfer
+        - SuperRareV2Approval
+        - ApprovalForAll
+      abis:
+        - name: SuperRareV2
+          file: SuperRareV2/abis/SuperRareV2.json
+      eventHandlers:
+        - event: TokenURIUpdated(indexed uint256,string)
+          handler: handleTokenURIUpdated
+        - event: AddToWhitelist(indexed address)
+          handler: handleAddToWhitelist
+        - event: RemoveFromWhitelist(indexed address)
+          handler: handleRemoveFromWhitelist
+        - event: SuperRareV2OwnershipTransferred(indexed address,indexed address)
+          handler: handleSuperRareV2OwnershipTransferred
+        - event: SuperRareV2Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleSuperRareV2Transfer
+        - event: SuperRareV2Approval(indexed address,indexed address,indexed uint256)
+          handler: handleSuperRareV2Approval
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
+      file: SuperRareV2/SuperRareV2.wasm

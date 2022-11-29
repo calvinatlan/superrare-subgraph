@@ -1,4 +1,4 @@
-specVersion: 0.0.1
+specVersion: 0.0.4
 schema:
   file: ./schema.graphql
 dataSources:
@@ -45,3 +45,40 @@ dataSources:
         - event: Approval(indexed address,indexed address,uint256)
           handler: handleApproval
       file: ./src/super-rare-v-1.ts
+  - kind: ethereum
+    name: SuperRareV2
+    network: mainnet
+    source:
+      address: "0xb932a70a57673d89f4acffbe830e8ed7f75fb9e0"
+      abi: SuperRareV2
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - TokenURIUpdated
+        - AddToWhitelist
+        - RemoveFromWhitelist
+        - SuperRareV2OwnershipTransferred
+        - SuperRareV2Transfer
+        - SuperRareV2Approval
+        - ApprovalForAll
+      abis:
+        - name: SuperRareV2
+          file: ./abis/SuperRareV2.json
+      eventHandlers:
+        - event: TokenURIUpdated(indexed uint256,string)
+          handler: handleTokenURIUpdated
+        - event: AddToWhitelist(indexed address)
+          handler: handleAddToWhitelist
+        - event: RemoveFromWhitelist(indexed address)
+          handler: handleRemoveFromWhitelist
+        - event: SuperRareV2OwnershipTransferred(indexed address,indexed address)
+          handler: handleSuperRareV2OwnershipTransferred
+        - event: SuperRareV2Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleSuperRareV2Transfer
+        - event: SuperRareV2Approval(indexed address,indexed address,indexed uint256)
+          handler: handleSuperRareV2Approval
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
+      file: ./src/super-rare-v-2.ts
